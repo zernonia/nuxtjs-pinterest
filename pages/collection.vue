@@ -2,7 +2,7 @@
   <div class="content">
     <div class="header">
       <h1>My <span class="head">Collection ({{ count }})</span></h1>
-      <h3 @click="goback" class="back">⇽ Back</h3 @click="goback">
+      <h3 @click="goback" class="back">⇽ Back</h3>
     </div>
     <div class="gallery" >
       <div class="photos" v-for="(picture, index) in allpicture" :key="picture.likes" >
