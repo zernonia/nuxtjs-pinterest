@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap');
+* {
+  font-family: Poppins, Arial;
+}
+
+.page-enter-active, .page-leave-active {
+    transition: opacity .5s;
+  }
+  .page-enter, .page-leave-to {
+    opacity: 0;
+  }
+
+body{
+  margin: 0;
+  box-shadow: none;
+}
+
+
+.search {
+  width: 200px;
+  height: 20px;
+  background: white;
+  padding: 10px 10px 10px 25px;
+  border-radius: 1.2em;
+  border-style: none; 
+  transition: 0.5s;
+}
+.search:focus{
+  outline: none;
+  box-shadow: 0px 0px 10px 0px rgba(204,204,204,1);
+  transition: 0.5s
+}
+
+.content {
+  background: whitesmoke;
+  padding: 5em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 2em 0;
+}
+.header h1{
+  margin: 0;
+  padding: 0;
+}
+
+.love {
+  right: 0;
+  top: 0;
+  background: white;
+  position:absolute;
+  width: 1.3em;
+  padding: 0.7em;
+  margin: 0.4em;
+  border-radius: 1em;
+  opacity: 0;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.head{
+    color: #f33b3b !important;
+}
+.saved {
+  background: #f33b3b;
+  opacity: 1;
+}
+.saved > .lovefill {
+  fill: white;
+
+}
+
+.side{
+  position: fixed;
+  margin-right: 0;
+  top:20%;
+  right: 0px;
+  padding:1em;
+  padding-right:1.5em;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  width:1.7em;
+}
+
+
+
+.gallery {
+    columns: 3;
+    column-gap: 1.5em;
+  
+  } 
+  
+  .photos {
+    display: inline-block;
+    overflow: hidden;
+    margin-bottom: 1.2em;
+    height:100%;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .photos img {
+    width: 100%;
+    height: auto;
+    border-radius: 1.5em;
+  }
+  
+  .user {
+    bottom: 0;
+    left: 0;
+    padding: 0.7em 1.5em ;
+    color: white;
+    background: #f33b3b;
+    border-radius: 1.2em;
+    font-size: 1em;
+    position:absolute;
+    margin: 0.8em;
+    opacity: 0;
+    transition: 0.5s;
+  }
+  
+  
+  
+  .photos:hover > .user, .photos:hover > .love{
+    opacity: 1;
+    transition: 0.5s;
+  }
+  .photos:hover > img {
+    opacity: 0.9;
+    transition: 0.5s;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100vh; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(241, 241, 241); /* Fallback color */
+    background-color: rgba(255, 255, 255, 0.877); /* Black w/ opacity */
+    transition: 0.5s;
+  }
+  .modalcontent {
+    position: relative;
+    background-color: #fefefe;
+    margin: 5% auto; /* 15% from the top and centered */
+    padding: 0px;
+    border-radius: 2em; 
+    width: 80%; /* Could be more or less, depending on screen size */
+    animation-name: rightin;
+    animation-duration: 0.4s;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+  }
+  
+  @keyframes rightin {
+    from { opacity: 0}
+    to { opacity: 1}
+  }
+  
+  .close {
+    color: #aaa;
+    position: fixed;
+    margin: 1em;
+    right:0;
+    font-size: 45px;
+    font-weight: bold;
+  }
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modalimg{
+    width:60%;
+  }
+  .modaltext{
+    width: 40%;
+    padding: 3em;
+    position: relative;
+    
+  }
+  .modaldesc {
+    text-overflow: ellipsis; 
+    height:auto;
+  }
+  .modallove{
+    opacity: 1;
+    margin: 2em;
+    width:1.6em;
+  }
