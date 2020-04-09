@@ -196,3 +196,56 @@ body{
     margin: 2em;
     width:1.6em;
   }
+
+
+@media screen and (max-width: 425px){
+  .content{
+    padding: 3em;
+  }
+  .header{
+    flex-direction: column;
+    padding-bottom: 1.5em;
+    line-height: 2.3em;
+  }
+  .search{
+    margin-top: 1.4em;
+    margin-bottom: 1.4em;
+  }
+  .gallery{
+    columns: 1;
+
+  }
+  .modalcontent{
+    flex-direction: column;
+  }
+  .modalimg{width: 100%}
+  .modaltext{
+    width: 92%;
+    padding: 0.8em;
+  }
+  .modaldesc{
+    font-size: 1.4em;
+    margin-top:0.3em;
+  }
+  .modallove{
+    margin: 0.5em;
+  }
+  .modaluser{
+    margin-bottom:0em;
+  }
+  .close{
+    margin:0.3em;
+  }
+  .side{
+    position: absolute;
+    top:30%;
+  }
+} 
+
+@media screen and (max-width: 425px){
+  .content{
+    padding: 1.3em; 
+  }
+
+
+}
