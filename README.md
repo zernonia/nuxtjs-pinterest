@@ -2,7 +2,7 @@
 
 > Another Fun & Awesome Project
 
-![nuxtjs pinterest zernonia]('nuxtjs pinterest.png')
+![nuxtjs pinterest zernonia](nuxtjs-pinterest.png)
 
 ## Demo
 [Demo](https://nuxtjs-pinterest.now.sh)
