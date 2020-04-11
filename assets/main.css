@@ -204,6 +204,7 @@ body{
     background-color: rgb(241, 241, 241); /* Fallback color */
     background-color: rgba(255, 255, 255, 0.877); /* Black w/ opacity */
     transition: 0.5s;
+    align-items: center;
   }
   .modalcontent {
     position: relative;
@@ -289,7 +290,7 @@ body{
 
 @media screen and (max-width: 425px){
   .content{
-    padding: 3em;
+    padding: 1.6em;
   }
   .header{
     flex-direction: column;

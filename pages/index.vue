@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mutations, state } from '../store/saved'
 export default {
   data(){
     return{
@@ -129,11 +130,17 @@ export default {
     },
     searchrecent(data){
       this.getdata(data)
-    }
+    },
+
   },
   mounted(){
     this.getdata('tree')   
-  }
+    this.$store.subscribe((mutations, state) => {
+      localStorage.setItem('store', JSON.stringify(state))
+    })
+  },
+  
+
 }
 </script>
 

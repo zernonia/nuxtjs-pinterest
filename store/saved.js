@@ -18,7 +18,8 @@ export const mutations = {
     },
     removesearch (state, data){
         state.recent.splice(state.recent.indexOf(data),1)
-    }
+    },
+
 }
 
 export const getters = {

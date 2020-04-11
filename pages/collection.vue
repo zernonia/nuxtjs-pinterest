@@ -28,7 +28,6 @@
 </template>
 
 <script>
-
 export default {
 data(){
     return{
@@ -53,7 +52,6 @@ methods:{
     openmodal(index){
       document.querySelector(".modal").style.display = "block"
       document.querySelector("body").style.overflow = "hidden"
-
       this.modaldata = this.allpicture[index]
     },
     closemodal(){

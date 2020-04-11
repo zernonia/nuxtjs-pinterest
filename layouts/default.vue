@@ -12,6 +12,7 @@ export default {
       this.$router.push({ path: `/collection`})
     }
   },
+ 
 }
 </script>
 
