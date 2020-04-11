@@ -3,7 +3,7 @@
     <div class="header">
       <h1>Welcome to <span class="head">Pinterest</span></h1>
       <div class="search">
-        <input type="text" class="searchtext" placeholder="Search keywords" v-model="searchterm" @keyup.enter="submit">
+        <input type="text" @focus="dropbox" @blur="blurbox" class="searchtext" placeholder="Search keywords" v-model="searchterm" @keyup.enter="submit">
         <div v-if="recent != 0" class="searchdrop">
           <div class="recent" v-for="(search, index) in recent" :key="index" ><div @click="searchrecent(search)" style="flex-grow: 1;cursor:pointer;">{{ search }}</div>
             <svg @click="removerecent(search)" height="682.656" viewBox="0 0 511.992 511.992" class="removesearch" xmlns="http://www.w3.org/2000/svg"><path d="M415.402 495.422l-159.406-159.41L96.59 495.422c-22.098 22.094-57.922 22.094-80.02 0-22.093-22.098-22.093-57.922 0-80.02l159.41-159.406L16.57 96.59c-22.093-22.098-22.093-57.922 0-80.02 22.098-22.093 57.922-22.093 80.02 0l159.406 159.41L415.402 16.57c22.098-22.093 57.922-22.093 80.02 0 22.094 22.098 22.094 57.922 0 80.02l-159.41 159.406 159.41 159.406c22.094 22.098 22.094 57.922 0 80.02-22.098 22.094-57.922 22.094-80.02 0zm0 0"/></svg>
@@ -49,6 +49,7 @@ export default {
     recent(){
       return this.$store.state.saved.recent
     },
+    
   },
   methods:{
     async getdata(search){
@@ -131,7 +132,22 @@ export default {
     searchrecent(data){
       this.getdata(data)
     },
-
+    dropbox(){
+      const search = document.querySelector('.searchtext')
+      if(this.recent != 0){ 
+        search.style.borderBottomLeftRadius = "0"
+        search.style.borderBottomRightRadius = "0"
+        }
+      else {
+        search.style.borderBottomLeftRadius = "1.2em"
+        search.style.borderBottomRightRadius = "1.2em"
+      }
+    },
+    blurbox(){
+      const search = document.querySelector('.searchtext')
+      search.style.borderBottomLeftRadius = "1.2em"
+      search.style.borderBottomRightRadius = "1.2em"
+    }
   },
   mounted(){
     this.getdata('tree')   

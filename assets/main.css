@@ -3,6 +3,22 @@
   font-family: Poppins, Arial;
 }
 
+html{
+  --backg: whitesmoke;
+  --input: white;
+  --text: black;
+  --bgmodal: rgba(255, 255, 255, 0.76);
+  --modal: white;
+}
+
+html[data-theme='darktheme']{
+  --backg: #292929;
+  --input: black;
+  --text: white;
+  --bgmodal: rgba(0, 0, 0, 0.853);
+  --modal: #292929;
+}
+
 .page-enter-active, .page-leave-active {
     transition: opacity .5s;
   }
@@ -20,6 +36,9 @@ body{
   position: relative;
   
 }
+input[type=text]{
+  color: var(--text);
+}
 
 .recent {
   height: 25px;
@@ -34,13 +53,17 @@ body{
   border: none;
   width: 200px;
   height: 20px;
-  background: white;
+  background: var(--input);
   padding: 10px 10px 10px 25px;
   border-radius: 1.2em;
   border-style: none; 
   transition: 0.5s;
   box-shadow: none;
   font-size:0.85em;
+}
+.dropbox {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 .searchtext:focus + .searchdrop{
   visibility: visible;
@@ -54,7 +77,7 @@ body{
   position: absolute;
   top: 40px;
   padding: 20px 10px 10px 25px;
-  background-color: white;
+  background-color: var(--input);
   width: 200px;
   z-index: 1;
   border-bottom-left-radius: 1.2em ;
@@ -65,7 +88,7 @@ body{
 }
 .searchdrop:before{
   content: '';
-    background: whitesmoke;
+    background: var(--backg);
     width: 180px;
     height: 2px;
     position: absolute;
@@ -88,8 +111,9 @@ body{
 
 
 .content {
-  background: whitesmoke;
+  background: var(--backg);
   padding: 5em;
+  transition: 0.5s;
 }
 
 .header {
@@ -98,6 +122,8 @@ body{
   padding: 2em 0;
   line-height: 3.5em;
   align-items: center;
+  color: var(--text);
+  transition: 0.5s;
 }
 .header h1{
   margin: 0;
@@ -118,6 +144,21 @@ body{
   transition: 0.5s;
   cursor: pointer;
 }
+.dark {
+  right: 0;
+  top: 10% !important;
+  background: var(--input) !important;
+  position:absolute;
+  width: 1.3em;
+  padding: 0.7em;
+  margin: 0.4em;
+  border-radius: 1em;
+  opacity: 0;
+  transition: 0.5s;
+  cursor: pointer;
+  fill: gray;
+}
+
 .head{
     color: #f33b3b !important;
 }
@@ -136,10 +177,10 @@ body{
   top:20%;
   right: 0px;
   padding:1em;
-  padding-right:1.5em;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   width:1.7em;
+  height: 1.7em;
 }
 .side:hover{
   padding-right:2.5em;
@@ -201,14 +242,13 @@ body{
     width: 100%; /* Full width */
     height: 100vh; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(241, 241, 241); /* Fallback color */
-    background-color: rgba(255, 255, 255, 0.877); /* Black w/ opacity */
+    background-color: var(--bgmodal); /* Black w/ opacity */
     transition: 0.5s;
     align-items: center;
   }
   .modalcontent {
     position: relative;
-    background-color: #fefefe;
+    background-color: var(--modal);
     margin: 5% auto; /* 15% from the top and centered */
     padding: 0px;
     border-radius: 2em; 
@@ -218,6 +258,26 @@ body{
     display: flex;
     flex-direction: row;
     overflow: hidden;
+  }
+  .modaluser{
+    position: relative;
+  }
+  .modaluser:before{
+    content: "";
+    height: 2px;
+    background: gray;
+    position: absolute;
+    bottom: -5px;
+    z-index: 1;
+    animation: linein;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+  }
+
+  @keyframes linein{
+    from { width: 0px }
+    to { width: 100px }
   }
   
   .picture-list-move {
@@ -275,7 +335,7 @@ body{
     width: 40%;
     padding: 3em;
     position: relative;
-    
+    color: var(--text);
   }
   .modaldesc {
     text-overflow: ellipsis; 
@@ -295,7 +355,7 @@ body{
   .header{
     flex-direction: column;
     padding-bottom: 1.5em;
-    line-height: 3em;
+    line-height: 3.5em;
     align-items: normal;
   }
   .search{
