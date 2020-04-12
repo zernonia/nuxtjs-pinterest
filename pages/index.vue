@@ -42,17 +42,25 @@ export default {
   data(){
     return{
       allpicture: [],
-      searchterm: "",
+      searchterm: "tree",
       modaldata: {},
       collection : this.$store.state.saved.liked,
       empty: false,
+      pages: 1,
+      infinite: false,
     }
   },
   computed:{
     recent(){
       return this.$store.state.saved.recent
     },
-    
+  },
+  watch:{
+    infinite(){
+      if(this.infinite){
+        this.infinitescroll()
+      }
+    }
   },
   methods:{
     async getdata(search){
@@ -101,8 +109,8 @@ export default {
       }, 100);
     }).catch(e => console.log(e))
     },
-    async moredata(search){
-       await this.$axios.get(`https://api.unsplash.com/search/photos?page=2&per_page=30&query=${search}&order_by=popular`,{
+    async moredata(search,pages){
+       await this.$axios.get(`https://api.unsplash.com/search/photos?page=${pages}&per_page=30&query=${search}&order_by=popular`,{
             headers: {
               Authorization:
                 "Client-ID LI0gjYfm3P1sbM2ld_2fBXjcwswHM6TZDg442pJEdtw",
@@ -149,7 +157,6 @@ export default {
       if(this.$store.state.saved.recent.includes(this.searchterm) != true){
         this.$store.commit('saved/recentsearch', this.searchterm)}
       document.querySelector('.searchtext').blur()
-      this.searchterm = ""
     },
     openmodal(index){
       document.querySelector(".modal").style.display = "block"
@@ -204,12 +211,20 @@ export default {
     golink(link){
       window.open(link)
     },
-    infinitescroll(){
-      console.log(Math.round(document.documentElement.scrollTop + window.innerHeight))
+    checkfinite(){
+      if((document.documentElement.scrollTop + window.innerHeight) >= (Math.ceil(document.documentElement.offsetHeight)-1500)){
+        this.infinite = true
+      }
+      else { this.infinite = false }
+    },
+    infinitescroll(){   
+    //   window.onscroll = () => { 
+    //   const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight;
+    // console.log(bottomOfWindow) 
+    console.log('tiggered!')
+        this.pages += 1
+        this.moredata(this.searchterm, this.pages) 
       
-        if(Math.round(document.documentElement.scrollTop + window.innerHeight) == Math.round(document.documentElement.offsetHeight)) {
-          this.moredata('tree')
-        }      
     },
     resizeGridItem(item){
       const grid = document.getElementsByClassName("gallery")[0];
@@ -226,8 +241,8 @@ export default {
     }
   },
   mounted(){
-    this.getdata('tree')   
-    // window.addEventListener('scroll', this.infinitescroll)
+    this.getdata(this.searchterm)   
+    window.addEventListener('scroll', this.checkfinite)
   },
   
 

@@ -394,6 +394,10 @@ input[type=text]{
   .gallery{
     columns: 1;
   }
+  .gallery-brick{
+    margin-left: 0;
+    margin-right: 0;
+  } 
   .modalcontent{
     flex-direction: column;
   }
