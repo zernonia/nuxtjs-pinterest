@@ -11,12 +11,14 @@
         </div>
       </div>
     </div>
-
-      <transition-group name="gallery-list" tag="div" class="gallery">
-        <div class="photos" v-for="(picture, index) in allpicture" :key="picture.id " >
-          <img :src="picture.regular" :alt="picture.altdesc" @click="openmodal(index)">
-          <h5 class="user">{{ picture.name }}</h5>
-          <svg @click="addlike(picture)" :class="{ saved : issaved(picture.id) }" class="love" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path class="lovefill" d="M24.85 10.126c2.018-4.783 6.628-8.125 11.99-8.125 7.223 0 12.425 6.179 13.079 13.543 0 0 .353 1.828-.424 5.119-1.058 4.482-3.545 8.464-6.898 11.503L24.85 48 7.402 32.165c-3.353-3.038-5.84-7.021-6.898-11.503-.777-3.291-.424-5.119-.424-5.119C.734 8.179 5.936 2 13.159 2c5.363 0 9.673 3.343 11.691 8.126z" fill="#c03a2b"/><path d="M6 18.078a1 1 0 01-1-1c0-5.514 4.486-10 10-10a1 1 0 110 2c-4.411 0-8 3.589-8 8a1 1 0 01-1 1z" fill="#ed7161"/></svg>
+      <h2 v-if="empty">No result found...</h2>
+      <transition-group name="gallery-list" tag="div" class="gallery"> 
+        <div class="gallery-brick" v-for="(picture, index) in allpicture" :key="picture.id">
+          <div class="photos">
+            <img :src="picture.regular" :alt="picture.altdesc" @click="openmodal(index)">
+            <h5 class="user">{{ picture.name }}</h5>
+            <svg @click="addlike(picture)" :class="{ saved : issaved(picture.id) }" class="love" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path class="lovefill" d="M24.85 10.126c2.018-4.783 6.628-8.125 11.99-8.125 7.223 0 12.425 6.179 13.079 13.543 0 0 .353 1.828-.424 5.119-1.058 4.482-3.545 8.464-6.898 11.503L24.85 48 7.402 32.165c-3.353-3.038-5.84-7.021-6.898-11.503-.777-3.291-.424-5.119-.424-5.119C.734 8.179 5.936 2 13.159 2c5.363 0 9.673 3.343 11.691 8.126z" fill="#c03a2b"/><path d="M6 18.078a1 1 0 01-1-1c0-5.514 4.486-10 10-10a1 1 0 110 2c-4.411 0-8 3.589-8 8a1 1 0 01-1 1z" fill="#ed7161"/></svg>
+          </div>
         </div>
       </transition-group>
 
@@ -25,7 +27,7 @@
       <div class="modalcontent">
         <img class="modalimg" :src="modaldata.full" :alt="modaldata.altdesc">
         <div class="modaltext">
-          <h5 class="modaluser">{{ modaldata.name }}</h5>
+          <h4 @click="golink(modaldata.userportfolio)" class="modaluser">{{ modaldata.name }}</h4>
           <h1 class="modaldesc">{{ modaldata.desc }}</h1>
           <svg @click="addlike(modaldata)" :class="{ saved : issaved(modaldata.id) }" class="love modallove" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path class="lovefill" d="M24.85 10.126c2.018-4.783 6.628-8.125 11.99-8.125 7.223 0 12.425 6.179 13.079 13.543 0 0 .353 1.828-.424 5.119-1.058 4.482-3.545 8.464-6.898 11.503L24.85 48 7.402 32.165c-3.353-3.038-5.84-7.021-6.898-11.503-.777-3.291-.424-5.119-.424-5.119C.734 8.179 5.936 2 13.159 2c5.363 0 9.673 3.343 11.691 8.126z" fill="#c03a2b"/><path d="M6 18.078a1 1 0 01-1-1c0-5.514 4.486-10 10-10a1 1 0 110 2c-4.411 0-8 3.589-8 8a1 1 0 01-1 1z" fill="#ed7161"/></svg>
         </div>
@@ -43,6 +45,7 @@ export default {
       searchterm: "",
       modaldata: {},
       collection : this.$store.state.saved.liked,
+      empty: false,
     }
   },
   computed:{
@@ -61,6 +64,7 @@ export default {
             }
           }).then( res => {
       this.allpicture = []
+
       for(var i = 0; i < res.data.results.length ; i ++){
 
         const picture = {
@@ -71,7 +75,10 @@ export default {
           regular : "",
           full : "",
           download : "",
-          name : ""
+          name : "",
+          userimg : "",
+          userportfolio : "",
+          // order: 0,
         }
 
         picture.id = res.data.results[i].id
@@ -82,11 +89,57 @@ export default {
         picture.full = res.data.results[i].urls.full
         picture.download = res.data.results[i].links.download_location
         picture.name = res.data.results[i].user.name
+        picture.userimg = res.data.results[i].user.profile_image.medium
+        picture.userportfolio = res.data.results[i].user.links.html
 
         this.allpicture.push(picture)
       }
+      if(this.allpicture.length == 0){ this.empty = true} else {this.empty = false}
+    }).then(() => {
+      setInterval(() => {
+        this.resizeAllGridItems()
+      }, 100);
+    }).catch(e => console.log(e))
+    },
+    async moredata(search){
+       await this.$axios.get(`https://api.unsplash.com/search/photos?page=2&per_page=30&query=${search}&order_by=popular`,{
+            headers: {
+              Authorization:
+                "Client-ID LI0gjYfm3P1sbM2ld_2fBXjcwswHM6TZDg442pJEdtw",
+                 "Accept-Version": "v1"
+            }
+          }).then( res => {
+      console.log(res.data)
+      for(var i = 0; i < res.data.results.length ; i ++){
 
-      console.log(this.allpicture)
+        const picture = {
+          id: "",
+          likes : 0,
+          desc : "",
+          altdesc : "",
+          regular : "",
+          full : "",
+          download : "",
+          name : "",
+          userimg : "",
+          userportfolio : ""
+        }
+
+        picture.id = res.data.results[i].id
+        picture.likes = res.data.results[i].likes
+        picture.desc = res.data.results[i].description
+        picture.altdesc = res.data.results[i].alt_description
+        picture.regular = res.data.results[i].urls.regular
+        picture.full = res.data.results[i].urls.full
+        picture.download = res.data.results[i].links.download_location
+        picture.name = res.data.results[i].user.name
+        picture.userimg = res.data.results[i].user.profile_image.medium
+        picture.userportfolio = res.data.results[i].user.links.html
+
+        this.allpicture.push(picture)
+        
+      }
+      if(this.allpicture.length == 0){ this.empty = true}
     }).catch(e => console.log(e))
     },
     submit(){
@@ -147,13 +200,34 @@ export default {
       const search = document.querySelector('.searchtext')
       search.style.borderBottomLeftRadius = "1.2em"
       search.style.borderBottomRightRadius = "1.2em"
+    },
+    golink(link){
+      window.open(link)
+    },
+    infinitescroll(){
+      console.log(Math.round(document.documentElement.scrollTop + window.innerHeight))
+      
+        if(Math.round(document.documentElement.scrollTop + window.innerHeight) == Math.round(document.documentElement.offsetHeight)) {
+          this.moredata('tree')
+        }      
+    },
+    resizeGridItem(item){
+      const grid = document.getElementsByClassName("gallery")[0];
+      const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+      const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
+      const rowSpan = Math.ceil((item.querySelector('.photos').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
+      item.style.gridRowEnd = "span "+rowSpan;
+    },
+    resizeAllGridItems(){
+      const allItems = document.getElementsByClassName("gallery-brick");
+      for(var x=0;x<allItems.length;x++){
+          this.resizeGridItem(allItems[x]);
+      }
     }
   },
   mounted(){
     this.getdata('tree')   
-    this.$store.subscribe((mutations, state) => {
-      localStorage.setItem('store', JSON.stringify(state))
-    })
+    // window.addEventListener('scroll', this.infinitescroll)
   },
   
 
