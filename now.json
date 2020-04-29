@@ -8,11 +8,11 @@
       }
     ],
     "env": {
-        "UNSPLASH_KEY": "process.env.UNSPLASH_KEY"
+        "UNSPLASH_KEY": true
       },
       "build": {
         "env": {
-        "UNSPLASH_KEY": "process.env.UNSPLASH_KEY"
+        "UNSPLASH_KEY": true
         }
       }
   }
