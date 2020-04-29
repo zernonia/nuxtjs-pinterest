@@ -24,6 +24,9 @@ These is what I've learnt throughout this project:
 - CSS Column & Flex (Using both to generate mansonry layout and others)
 - CSS Responsive Design (I've tried to avoid responsive design until this project)
 - and a bunch more minor details to great success!
+- IndexedDB to simulate server database
+- Route Transition
+- DotEnv to hide important Key for API call
 
 ##Enjoy!!
 
