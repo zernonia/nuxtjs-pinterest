@@ -8,11 +8,11 @@
       }
     ],
     "env": {
-        "UNSPLASH_KEY": "LI0gjYfm3P1sbM2ld_2fBXjcwswHM6TZDg442pJEdtw"
+        "UNSPLASH_KEY": "process.env.UNSPLASH_KEY"
       },
       "build": {
         "env": {
-          "UNSPLASH_KEY": "LI0gjYfm3P1sbM2ld_2fBXjcwswHM6TZDg442pJEdtw"
+        "UNSPLASH_KEY": "process.env.UNSPLASH_KEY"
         }
       }
   }
