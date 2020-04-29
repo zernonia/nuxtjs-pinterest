@@ -22,7 +22,6 @@ export default {
 			};
 			
 			request.onupgradeneeded = e => {
-				console.log('onupgradeneeded');
 				let db = e.target.result;
 				db.createObjectStore("liked", { autoIncrement: true, keyPath:'id' });
 			};

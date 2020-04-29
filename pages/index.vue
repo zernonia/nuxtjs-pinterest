@@ -247,7 +247,7 @@ export default {
     },
     resizeAllGridItems(){
       const allItems = document.getElementsByClassName("gallery-brick");
-      for(var x=0;x<allItems.length;x++){
+      for(var x=0; x < allItems.length ; x++){
           this.resizeGridItem(allItems[x]);
       }
     }
@@ -263,7 +263,6 @@ export default {
     this.show = false
     next()
   }
-
 
 }
 </script>
