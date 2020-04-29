@@ -24,7 +24,9 @@
     <div class="modal" @click="closemodalwindow">
       <span class="close" @click="closemodal">&times;</span>
       <div class="modalcontent">
-        <img class="modalimg" :src="modaldata.full" :alt="modaldata.altdesc">
+        <svg class="arrow left" @click="left()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M423.386 248.299l-256-245.327c-4.208-4.021-10.833-3.958-14.927.167l-64 63.998a10.655 10.655 0 00.219 15.291L272.47 256.007 88.678 429.586a10.655 10.655 0 00-.219 15.291l64 63.998a10.634 10.634 0 007.542 3.125c2.656 0 5.313-.979 7.385-2.958l256-245.327a10.696 10.696 0 000-15.416z"/></svg>
+        <svg class="arrow right" @click="right()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M423.386 248.299l-256-245.327c-4.208-4.021-10.833-3.958-14.927.167l-64 63.998a10.655 10.655 0 00.219 15.291L272.47 256.007 88.678 429.586a10.655 10.655 0 00-.219 15.291l64 63.998a10.634 10.634 0 007.542 3.125c2.656 0 5.313-.979 7.385-2.958l256-245.327a10.696 10.696 0 000-15.416z"/></svg>
+        <img class="modalimg" :src="modaldata.regular" :alt="modaldata.altdesc">
         <div class="modaltext">
           <h4 @click="golink(modaldata.userportfolio)" class="modaluser">{{ modaldata.name }}</h4>
           <h1 class="modaldesc">{{ modaldata.desc }}</h1>
@@ -49,6 +51,7 @@ export default {
       pages: 1,
       infinite: false,
       show: true,
+      currentmodal: 0,
     }
   },
   transition (to,from){
@@ -95,10 +98,10 @@ export default {
           // order: 0,
           searchterm : "",
         }
-
+        
         picture.id = res.data.results[i].id
         picture.likes = res.data.results[i].likes
-        picture.desc = res.data.results[i].description
+        // picture.desc = res.data.results[i].description
         picture.altdesc = res.data.results[i].alt_description
         picture.regular = res.data.results[i].urls.regular
         picture.full = res.data.results[i].urls.full
@@ -107,6 +110,15 @@ export default {
         picture.userimg = res.data.results[i].user.profile_image.medium
         picture.userportfolio = res.data.results[i].user.links.html
         picture.searchterm = search
+
+        if(res.data.results[i].description != null){
+          if(res.data.results[i].description.length <= 50){
+            picture.desc = res.data.results[i].description
+          }
+          else{
+            picture.desc = res.data.results[i].description.slice(0,50)
+          }
+        }
 
         this.allpicture.push(picture)
       }
@@ -144,7 +156,7 @@ export default {
 
         picture.id = res.data.results[i].id
         picture.likes = res.data.results[i].likes
-        picture.desc = res.data.results[i].description
+        // picture.desc = res.data.results[i].description
         picture.altdesc = res.data.results[i].alt_description
         picture.regular = res.data.results[i].urls.regular
         picture.full = res.data.results[i].urls.full
@@ -153,6 +165,15 @@ export default {
         picture.userimg = res.data.results[i].user.profile_image.medium
         picture.userportfolio = res.data.results[i].user.links.html
         picture.searchterm = search
+
+        if(res.data.results[i].description != null){
+          if(res.data.results[i].description.length <= 50){
+            picture.desc = res.data.results[i].description
+          }
+          else{
+            picture.desc = res.data.results[i].description.slice(0,50)
+          }
+        }
 
         this.allpicture.push(picture)
         
@@ -174,6 +195,20 @@ export default {
       document.querySelector("body").style.overflow = "hidden"
 
       this.modaldata = this.allpicture[index]
+      this.currentmodal = index
+
+      if(this.currentmodal == 0){
+        document.querySelector('.left').style.display = 'none'
+      }
+      else{
+        document.querySelector('.left').style.display = 'block'
+      }
+      if(this.currentmodal == this.allpicture.length - 1){
+        document.querySelector('.right').style.display = 'none'
+      }
+      else{
+        document.querySelector('.right').style.display = 'block'
+      }
     },
     closemodal(){
       this.modaldata = {}
@@ -231,9 +266,6 @@ export default {
       else { this.infinite = false }
     },
     infinitescroll(){   
-    //   window.onscroll = () => { 
-    //   const bottomOfWindow = document.documentElement.scrollTop + window.innerHeight >= document.documentElement.offsetHeight;
-    // console.log(bottomOfWindow) 
         this.pages += 1
         this.moredata(this.searchterm, this.pages) 
       
@@ -249,6 +281,16 @@ export default {
       const allItems = document.getElementsByClassName("gallery-brick");
       for(var x=0; x < allItems.length ; x++){
           this.resizeGridItem(allItems[x]);
+      }
+    },
+    left(){
+      if(this.currentmodal > 0){
+        this.openmodal(this.currentmodal - 1)
+      }
+    },
+    right(){
+      if(this.currentmodal < this.allpicture.length -1){
+        this.openmodal(this.currentmodal + 1)
       }
     }
   },

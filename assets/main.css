@@ -416,6 +416,7 @@ input[type=text]{
   
   .modalimg{
     width:60%;
+    object-fit: cover;
   }
   .modaltext{
     width: 40%;
@@ -432,6 +433,31 @@ input[type=text]{
     margin: 2em;
     width:1.6em;
     z-index:2;
+  }
+
+  .arrow{
+    position: fixed;
+    background-color: white;
+    border-radius: 100000px;
+    font-size: 15px;
+    padding: 10px;
+    width: 1.6em;
+    text-align: center;
+    fill: #f33b3b;
+    -webkit-user-select: none;
+  }
+  .arrow:hover{
+    cursor: pointer;
+  }
+  
+  .left{
+    left: 5%;
+    top: 50%;
+    transform: rotate(180deg);
+  }
+  .right{
+    right: 5%;
+    top: 50%;
   }
 
 
@@ -459,7 +485,9 @@ input[type=text]{
   .modalcontent{
     flex-direction: column;
   }
-  .modalimg{width: 100%}
+  .modalimg{
+    width: 100%
+  }
   .modaltext{
     width: 92%;
     padding: 0.8em;
