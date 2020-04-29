@@ -14,5 +14,7 @@
     "@nuxtjs/axios": "^5.3.6",
     "nuxt": "^2.12.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.1"
+  }
 }

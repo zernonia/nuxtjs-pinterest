@@ -13,7 +13,8 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    ],
+    
   },
   /*
   ** Customize the progress-bar color
@@ -34,6 +35,7 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    '@nuxtjs/dotenv'
   ],
   /*
   ** Nuxt.js modules

@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="header">
-      <h1>Welcome to <span class="head">Pinterest</span></h1>
+      <h1>Welcome to <span class="head">{{ $route.params.search}}</span></h1>
       <div class="search">
         <input type="text" @focus="dropbox" @blur="blurbox" class="searchtext" placeholder="Search keywords" v-model="searchterm" @keyup.enter="submit">
         <div v-if="recent != 0" class="searchdrop">
@@ -12,8 +12,8 @@
       </div>
     </div>
       <h2 v-if="empty">No result found...</h2>
-      <transition-group name="search-list" tag="div" class="gallery" mode="out-in" > 
-        <div class="gallery-brick" v-for="(picture, index) in allpicture" :key="picture.id" v-if="show">
+      <transition-group name="search-list" tag="div" class="gallery" mode="out-in"> 
+        <div class="gallery-brick" v-if="show" v-for="(picture, index) in allpicture" :key="picture.id">
           <div class="photos">
             <img :src="picture.regular" :alt="picture.altdesc" @click="openmodal(index)">
             <h5 class="user">{{ picture.name }}</h5>
@@ -21,6 +21,7 @@
           </div>
         </div>
       </transition-group>
+
     <div class="modal" @click="closemodalwindow">
       <span class="close" @click="closemodal">&times;</span>
       <div class="modalcontent">
@@ -42,7 +43,7 @@ export default {
   data(){
     return{
       allpicture: [],
-      searchterm: "tree",
+      searchterm: this.$route.params.search,
       modaldata: {},
       collection : this.$store.state.saved.liked,
       empty: false,
@@ -52,9 +53,7 @@ export default {
     }
   },
   transition (to,from){
-    if (from != undefined ){
-      return from.name === 'collection' ? 'fade' : 'none'}
-    else {return 'none'}
+      return from.name === 'collection' ? 'fade' : 'none'
   },
   computed:{
     recent(){
@@ -139,7 +138,7 @@ export default {
           name : "",
           userimg : "",
           userportfolio : "",
-          searchterm : "",
+          searchterm : this.$route.params.search,
         }
 
         picture.id = res.data.results[i].id
@@ -253,17 +252,18 @@ export default {
     }
   },
   mounted(){
-    this.getdata(this.searchterm)   
+    this.getdata(this.$route.params.search)   
     window.addEventListener('scroll', this.checkfinite)
   },
   beforeDestroy(){
     window.removeEventListener('scroll', this.checkfinite)
   },
-  beforeRouteLeave (to, from, next){
+  beforeRouteUpdate (to, from, next){
     this.show = false
-    next()
-  }
-
+    setTimeout(() => {
+        next()
+    }, 10);
+  } 
 
 }
 </script>
