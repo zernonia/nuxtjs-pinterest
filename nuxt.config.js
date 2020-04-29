@@ -59,5 +59,7 @@ export default {
     extend (config, ctx) {
     }
   },
-  buildDir: 'dist'
+  env:{
+    UNSPLASH_KEY: process.env.UNSPLASH_KEY
+  }
 }
