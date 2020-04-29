@@ -58,5 +58,6 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  buildDir: 'dist'
 }
