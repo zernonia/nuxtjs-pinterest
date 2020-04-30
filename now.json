@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "nuxt.config.js",
+        "use": "@nuxtjs/now-builder",
+        "config": {}
+      }
+    ],
+    "env": {
+      "UNSPLASH_KEY" : "LI0gjYfm3P1sbM2ld_2fBXjcwswHM6TZDg442pJEdtw"
+    },
+    "build": {
+      "env": {
+        "UNSPLASH_KEY" : "LI0gjYfm3P1sbM2ld_2fBXjcwswHM6TZDg442pJEdtw"
+      }
+    }
+  }

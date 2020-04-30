@@ -11,47 +11,37 @@
         </div>
       </div>
     </div>
+    <transition name="fade">
       <h2 v-if="empty">No result found...</h2>
-      <transition-group name="search-list" tag="div" class="gallery" mode="out-in" > 
-        <div class="gallery-brick" v-for="(picture, index) in allpicture" :key="picture.id" v-if="show">
-          <div class="photos">
-            <img :src="picture.regular" :alt="picture.altdesc" @click="openmodal(index)">
-            <h5 class="user">{{ picture.name }}</h5>
-            <svg @click="addlike(picture)" :class="{ saved : issaved(picture.id) }" class="love" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path class="lovefill" d="M24.85 10.126c2.018-4.783 6.628-8.125 11.99-8.125 7.223 0 12.425 6.179 13.079 13.543 0 0 .353 1.828-.424 5.119-1.058 4.482-3.545 8.464-6.898 11.503L24.85 48 7.402 32.165c-3.353-3.038-5.84-7.021-6.898-11.503-.777-3.291-.424-5.119-.424-5.119C.734 8.179 5.936 2 13.159 2c5.363 0 9.673 3.343 11.691 8.126z" fill="#c03a2b"/><path d="M6 18.078a1 1 0 01-1-1c0-5.514 4.486-10 10-10a1 1 0 110 2c-4.411 0-8 3.589-8 8a1 1 0 01-1 1z" fill="#ed7161"/></svg>
-          </div>
-        </div>
-      </transition-group>
-    <div class="modal" @click="closemodalwindow">
-      <span class="close" @click="closemodal">&times;</span>
-      <div class="modalcontent">
-        <svg class="arrow left" @click="left()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M423.386 248.299l-256-245.327c-4.208-4.021-10.833-3.958-14.927.167l-64 63.998a10.655 10.655 0 00.219 15.291L272.47 256.007 88.678 429.586a10.655 10.655 0 00-.219 15.291l64 63.998a10.634 10.634 0 007.542 3.125c2.656 0 5.313-.979 7.385-2.958l256-245.327a10.696 10.696 0 000-15.416z"/></svg>
-        <svg class="arrow right" @click="right()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M423.386 248.299l-256-245.327c-4.208-4.021-10.833-3.958-14.927.167l-64 63.998a10.655 10.655 0 00.219 15.291L272.47 256.007 88.678 429.586a10.655 10.655 0 00-.219 15.291l64 63.998a10.634 10.634 0 007.542 3.125c2.656 0 5.313-.979 7.385-2.958l256-245.327a10.696 10.696 0 000-15.416z"/></svg>
-        <img class="modalimg" :src="modaldata.regular" :alt="modaldata.altdesc">
-        <div class="modaltext">
-          <h4 @click="golink(modaldata.userportfolio)" class="modaluser">{{ modaldata.name }}</h4>
-          <h1 class="modaldesc">{{ modaldata.desc }}</h1>
-          <svg @click="addlike(modaldata)" :class="{ saved : issaved(modaldata.id) }" class="love modallove" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path class="lovefill" d="M24.85 10.126c2.018-4.783 6.628-8.125 11.99-8.125 7.223 0 12.425 6.179 13.079 13.543 0 0 .353 1.828-.424 5.119-1.058 4.482-3.545 8.464-6.898 11.503L24.85 48 7.402 32.165c-3.353-3.038-5.84-7.021-6.898-11.503-.777-3.291-.424-5.119-.424-5.119C.734 8.179 5.936 2 13.159 2c5.363 0 9.673 3.343 11.691 8.126z" fill="#c03a2b"/><path d="M6 18.078a1 1 0 01-1-1c0-5.514 4.486-10 10-10a1 1 0 110 2c-4.411 0-8 3.589-8 8a1 1 0 01-1 1z" fill="#ed7161"/></svg>
+    </transition>
+    <!-- <transition-group name="search-list" tag="div" class="gallery" mode="out-in" > 
+      <div class="gallery-brick" v-for="(picture, index) in allpicture" :key="picture.id" v-if="show">
+        <div class="photos">
+          <img :src="picture.regular" :alt="picture.altdesc" @click="clickmodal(index)">
+          <h5 class="user">{{ picture.name }}</h5>
+          <svg @click="addlike(picture)" :class="{ saved : issaved(picture.id) }" class="love" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path class="lovefill" d="M24.85 10.126c2.018-4.783 6.628-8.125 11.99-8.125 7.223 0 12.425 6.179 13.079 13.543 0 0 .353 1.828-.424 5.119-1.058 4.482-3.545 8.464-6.898 11.503L24.85 48 7.402 32.165c-3.353-3.038-5.84-7.021-6.898-11.503-.777-3.291-.424-5.119-.424-5.119C.734 8.179 5.936 2 13.159 2c5.363 0 9.673 3.343 11.691 8.126z" fill="#c03a2b"/><path d="M6 18.078a1 1 0 01-1-1c0-5.514 4.486-10 10-10a1 1 0 110 2c-4.411 0-8 3.589-8 8a1 1 0 01-1 1z" fill="#ed7161"/></svg>
         </div>
       </div>
-    </div>
+    </transition-group> -->
+    <gallery :searchterm="searchterm" :show="show" :loaddata="loaddata"></gallery>
   </div>
 </template>
 
 <script>
 import { mutations, state } from '../store/saved'
+import Gallery from '~/components/Gallery'
 
 export default {
+  components:{
+    Gallery
+  },
   data(){
     return{
       allpicture: [],
       searchterm: "tree",
-      modaldata: {},
       collection : this.$store.state.saved.liked,
       empty: false,
-      pages: 1,
-      infinite: false,
       show: true,
-      currentmodal: 0,
     }
   },
   transition (to,from){
@@ -64,122 +54,9 @@ export default {
       return this.$store.state.saved.recent
     },
   },
-  watch:{
-    infinite(){
-      if(this.infinite){
-        this.infinitescroll()
-      }
-    }
-  },
   methods:{
-    async getdata(search){
-       await this.$axios.get(`https://api.unsplash.com/search/photos?page=1&per_page=30&query=${search}&order_by=popular`,{
-            headers: {
-              Authorization:
-                `Client-ID ${process.env.UNSPLASH_KEY}`,
-                 "Accept-Version": "v1"
-            }
-          }).then( res => {
-      this.allpicture = []
-
-      for(var i = 0; i < res.data.results.length ; i ++){
-
-        const picture = {
-          id: "",
-          likes : 0,
-          desc : "",
-          altdesc : "",
-          regular : "",
-          full : "",
-          download : "",
-          name : "",
-          userimg : "",
-          userportfolio : "",
-          // order: 0,
-          searchterm : "",
-        }
-        
-        picture.id = res.data.results[i].id
-        picture.likes = res.data.results[i].likes
-        // picture.desc = res.data.results[i].description
-        picture.altdesc = res.data.results[i].alt_description
-        picture.regular = res.data.results[i].urls.regular
-        picture.full = res.data.results[i].urls.full
-        picture.download = res.data.results[i].links.download_location
-        picture.name = res.data.results[i].user.name
-        picture.userimg = res.data.results[i].user.profile_image.medium
-        picture.userportfolio = res.data.results[i].user.links.html
-        picture.searchterm = search
-
-        if(res.data.results[i].description != null){
-          if(res.data.results[i].description.length <= 50){
-            picture.desc = res.data.results[i].description
-          }
-          else{
-            picture.desc = res.data.results[i].description.slice(0,50)
-          }
-        }
-
-        this.allpicture.push(picture)
-      }
-      if(this.allpicture.length == 0){ this.empty = true} else {this.empty = false}
-    }).then(() => {
-      setInterval(() => {
-        this.resizeAllGridItems()
-      }, 100);
-    }).catch(e => console.log(e))
-    },
-    async moredata(search,pages){
-       await this.$axios.get(`https://api.unsplash.com/search/photos?page=${pages}&per_page=30&query=${search}&order_by=popular`,{
-            headers: {
-              Authorization:
-                `Client-ID ${process.env.UNSPLASH_KEY}`,
-                 "Accept-Version": "v1"
-            }
-          }).then( res => {
-      console.log(res.data)
-      for(var i = 0; i < res.data.results.length ; i ++){
-
-        const picture = {
-          id: "",
-          likes : 0,
-          desc : "",
-          altdesc : "",
-          regular : "",
-          full : "",
-          download : "",
-          name : "",
-          userimg : "",
-          userportfolio : "",
-          searchterm : "",
-        }
-
-        picture.id = res.data.results[i].id
-        picture.likes = res.data.results[i].likes
-        // picture.desc = res.data.results[i].description
-        picture.altdesc = res.data.results[i].alt_description
-        picture.regular = res.data.results[i].urls.regular
-        picture.full = res.data.results[i].urls.full
-        picture.download = res.data.results[i].links.download_location
-        picture.name = res.data.results[i].user.name
-        picture.userimg = res.data.results[i].user.profile_image.medium
-        picture.userportfolio = res.data.results[i].user.links.html
-        picture.searchterm = search
-
-        if(res.data.results[i].description != null){
-          if(res.data.results[i].description.length <= 50){
-            picture.desc = res.data.results[i].description
-          }
-          else{
-            picture.desc = res.data.results[i].description.slice(0,50)
-          }
-        }
-
-        this.allpicture.push(picture)
-        
-      }
-      if(this.allpicture.length == 0){ this.empty = true}
-    }).catch(e => console.log(e))
+    loaddata(params){
+      this.allpicture = params
     },
     submit(){
       const str = this.searchterm.replace(/\s+/g, '-').toLowerCase();
@@ -190,48 +67,6 @@ export default {
         this.$store.commit('saved/recentsearch', this.searchterm)}
       document.querySelector('.searchtext').blur()
     },
-    openmodal(index){
-      document.querySelector(".modal").style.display = "block"
-      document.querySelector("body").style.overflow = "hidden"
-
-      this.modaldata = this.allpicture[index]
-      this.currentmodal = index
-
-      if(this.currentmodal == 0){
-        document.querySelector('.left').style.display = 'none'
-      }
-      else{
-        document.querySelector('.left').style.display = 'block'
-      }
-      if(this.currentmodal == this.allpicture.length - 1){
-        document.querySelector('.right').style.display = 'none'
-      }
-      else{
-        document.querySelector('.right').style.display = 'block'
-      }
-    },
-    closemodal(){
-      this.modaldata = {}
-  
-      document.querySelector(".modal").style.display = "none"
-      document.querySelector("body").style.overflow = "visible"
-    },
-    closemodalwindow(e){
-      if(e.target === document.querySelector(".modal")){
-        this.closemodal()
-      }
-    },
-    addlike(picture){
-      const temp = this.$store.state.saved.liked.filter(data => {if(data.id == picture.id) return data.id})
-      if (temp.length == 0 ){
-        this.$store.commit('saved/saved', picture)}
-      else {this.$store.commit('saved/remove', picture)}
-    },
-    issaved(id){
-      const temp = this.$store.state.saved.liked.filter(data => {if(data.id == id) return data.id})
-      if (temp.length > 0)
-        return true
-    },  
     removerecent(data){
       this.$store.commit('saved/removesearch', data)
     },
@@ -258,53 +93,12 @@ export default {
     },
     golink(link){
       window.open(link)
-    },
-    checkfinite(){
-      if((document.documentElement.scrollTop + window.innerHeight) >= (Math.ceil(document.documentElement.offsetHeight)-750)){
-        this.infinite = true
-      }
-      else { this.infinite = false }
-    },
-    infinitescroll(){   
-        this.pages += 1
-        this.moredata(this.searchterm, this.pages) 
-      
-    },
-    resizeGridItem(item){
-      const grid = document.getElementsByClassName("gallery")[0];
-      const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
-      const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
-      const rowSpan = Math.ceil((item.querySelector('.photos').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
-      item.style.gridRowEnd = "span "+rowSpan;
-    },
-    resizeAllGridItems(){
-      const allItems = document.getElementsByClassName("gallery-brick");
-      for(var x=0; x < allItems.length ; x++){
-          this.resizeGridItem(allItems[x]);
-      }
-    },
-    left(){
-      if(this.currentmodal > 0){
-        this.openmodal(this.currentmodal - 1)
-      }
-    },
-    right(){
-      if(this.currentmodal < this.allpicture.length -1){
-        this.openmodal(this.currentmodal + 1)
-      }
-    }
-  },
-  mounted(){
-    this.getdata(this.searchterm)   
-    window.addEventListener('scroll', this.checkfinite)
-  },
-  beforeDestroy(){
-    window.removeEventListener('scroll', this.checkfinite)
+    },   
   },
   beforeRouteLeave (to, from, next){
     this.show = false
     next()
-  }
+  },
 
 }
 </script>

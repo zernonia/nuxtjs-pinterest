@@ -311,10 +311,11 @@ input[type=text]{
   .modalcontent {
     position: relative;
     background-color: var(--modal);
-    margin: 5% auto; /* 15% from the top and centered */
+    margin: 2% auto;
     padding: 0px;
     border-radius: 2em; 
     width: 80%; /* Could be more or less, depending on screen size */
+    height: 92vh;
     animation-name: rightin;
     animation-duration: 0.4s;
     display: flex;
