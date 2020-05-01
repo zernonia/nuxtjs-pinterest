@@ -7,8 +7,8 @@
         <img v-on:dblclick="addlike(modaldata)" class="modalimg" :src="modaldata.regular" :alt="modaldata.altdesc">
         <div class="modaltext">
           <h4 @click="golink(modaldata.userportfolio)" class="modaluser">{{ modaldata.name }}</h4>
-          <h1 class="modaldesc">{{ modaldata.desc }}</h1>
           <svg @click="addlike(modaldata)" :class="{ saved : issaved(modaldata.id) }" class="love modallove" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path class="lovefill" d="M24.85 10.126c2.018-4.783 6.628-8.125 11.99-8.125 7.223 0 12.425 6.179 13.079 13.543 0 0 .353 1.828-.424 5.119-1.058 4.482-3.545 8.464-6.898 11.503L24.85 48 7.402 32.165c-3.353-3.038-5.84-7.021-6.898-11.503-.777-3.291-.424-5.119-.424-5.119C.734 8.179 5.936 2 13.159 2c5.363 0 9.673 3.343 11.691 8.126z" fill="#c03a2b"/><path d="M6 18.078a1 1 0 01-1-1c0-5.514 4.486-10 10-10a1 1 0 110 2c-4.411 0-8 3.589-8 8a1 1 0 01-1 1z" fill="#ed7161"/></svg>
+          <h1 class="modaldesc">| {{ modaldata.desc }} ... </h1>
         </div>
       </div>
     </div>
@@ -19,6 +19,8 @@ export default {
   data(){
       return{
           modaldata: {},
+          start: 0,
+          end: 0
       }
   },
   props:{
@@ -65,9 +67,10 @@ export default {
       }
     },
     openmodal(index){
-      document.querySelector(".modal").style.display = "block"
+      document.querySelector(".modal").style.display = "flex"
       document.querySelector("body").style.overflow = "hidden"
 
+      this.swipe = true
       
 
       if(this.currentmodal.name == undefined || this.currentmodal.name == null ){
@@ -141,13 +144,82 @@ export default {
     },
     issaved(id){
       const temp = this.$store.state.saved.liked.filter(data => {if(data.id == id) return data.id})
-      if (temp.length > 0)
+      if (temp.length > 0){
+        if(window.matchMedia("(max-width: 425px)").matches){
+          document.querySelector('.modallove').style.display = 'block'
+        }
         return true
+      }
     },
     golink(link){
       window.open(link)
-    },       
     },
+  },
+  mounted(){
+    if(window.matchMedia("(max-width: 425px)").matches){
+      // window.onpointerdown = event => {
+      //   console.log(event)
+      //   const down = event.clientX
+      // }
+      // const temp = []
+      // window.onpointermove = event2 => {
+      //   temp.push(event2)
+      //   console.log(temp)
+      //   if(this.swipe){
+        
+        
+      //   if(event2.movementX >= 2){
+      //     this.swipe = false
+      //     this.left()
+      //   }
+      //   else if(event2.movementX <= -2){
+      //     this.swipe = false
+      //     this.right()
+      //   }
+      //   else{
+      //     this.swipe = true
+      //   }
+        
+      // }
+
+      // }
+      window.ontouchstart = event => {
+          const startTime = new Date().getTime()
+          this.start = event.changedTouches[0].pageX
+          const start2 = event.changedTouches[0].pageY
+        
+        window.ontouchend = event => {
+          const endTime = new Date().getTime()
+          this.end = event.changedTouches[0].pageX
+          const end2 = event.changedTouches[0].pageY
+        
+        console.log(start2 - end2)
+        const time = endTime - startTime
+        const temp = (this.start - this.end)
+        if(time < 200){
+          if((temp) > 80){
+            this.right()
+          }
+          else if((this.start - this.end) < -80 ){
+            this.left()
+          }
+        }
+        if(time < 200){
+          if(start2 - end2 < -100){
+            this.closemodal()
+          }
+        }
+      }}
+    }
+    else{
+      window.ontouchstart = null
+      window.ontouchend = null
+    }  
+  },
+  beforeDestroy(){
+    window.ontouchstart = null
+    window.ontouchend = null
+  }
 }
 </script>
 

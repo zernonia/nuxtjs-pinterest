@@ -231,7 +231,6 @@ input[type=text]{
 }
 .saved > .lovefill {
   fill: white;
-
 }
 
 .side{
@@ -251,9 +250,6 @@ input[type=text]{
 
 
 .gallery {
-    /* columns: 3;
-    column-gap: 1.5em; */
-    /* column-fill: inherit; */
     display: grid;
     grid-gap: 0.9em;
     grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
@@ -526,6 +522,7 @@ input[type=text]{
     padding-bottom: 1.5em;
     line-height: 3.5em;
     align-items: normal;
+    width: 80%;
   }
   .search{
     margin-top: 1.4em;
@@ -540,36 +537,65 @@ input[type=text]{
   } 
   .modalcontent{
     flex-direction: column;
+    height: max-content;
+    width:90%;
   }
   .modalimg{
     width: 100%
   }
   .modaltext{
-    width: 92%;
+    width: 94%;
     padding: 0.8em;
+    position: absolute;
+    bottom: -5%;
+    background: linear-gradient(0deg, rgba(243,59,59,1) 20%, rgba(243,59,59,0.07592209246980042) 70%, rgba(255,255,255,0) 100%);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
   }
   .modaldesc{
-    font-size: 1.4em;
-    margin-top:0.3em;
+    font-size: 0.7em;
+    padding-bottom: 0.5em;
   }
   .modallove{
     margin: 0.5em;
+    transform: scale(0.8);
+    position: initial;
+    top: 100px;
   }
   .modaluser{
-    margin-bottom:0em;
+    margin: 0;
+    padding-right: 0.5em;
   }
   .close{
     margin:0.3em;
+    top: 0%;
   }
   .side{
     position: absolute;
-    top:30%;
-  }
-  .love{
-    top: 100px;
   }
   .dark{
     top: 40px !important;
+  }
+  .arrow{
+    top: 46.5%;
+    z-index: 5;
+  }
+  .left{
+    left: 0;
+  }
+  .right{
+    right: 0;
+  }
+  .loved{
+    top: 0;
+  }
+  .up{
+    position: fixed;
+    opacity: 0.5;
+  }
+  .wholegallery{
+    margin-top: -10%;
   }
 } 
 
@@ -585,5 +611,11 @@ input[type=text]{
   .side:hover{
     padding-right:1em;
   }
+
+  input[type=text] {
+    color: black;
+    color: var(--text);
+    font-size: 1.2em;
+}
 
 }
