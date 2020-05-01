@@ -47,6 +47,38 @@ body{
   box-shadow: none;
 }
 
+.nuxt-link-active{
+  text-decoration: none;
+  color: inherit;
+  position: relative
+}
+
+.nuxt-link-active.hover:before {
+  left: 0;
+}
+
+.nuxt-link-active:hover.hover:before {
+  width: 100%;
+  opacity: 1;
+}
+
+.hover:before{
+  content: "";
+  height: 5px;
+  width: 0px;
+  background: rgb(140,9,9);
+  background: linear-gradient(90deg, rgba(140,9,9,1) 0%, rgba(243,59,59,1) 76%, rgba(255,89,89,1) 100%);
+  position: absolute;
+  bottom: -5px;
+  z-index: 1;
+  /* animation: linein;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-delay: 1s; */
+  transition: all 0.2s ease-in-out;
+  transition-duration: 0.75s;
+  opacity: 0;
+}
 
 .search {
   position: relative;
@@ -232,7 +264,7 @@ input[type=text]{
 
 .gallery-title:before{
   content: "";
-  height: 3px;
+  height: 4px;
   background: rgb(140,9,9);
   background: linear-gradient(90deg, rgba(140,9,9,1) 0%, rgba(243,59,59,1) 76%, rgba(255,89,89,1) 100%);
   position: absolute;
@@ -330,7 +362,7 @@ input[type=text]{
   }
   .modaluser:before{
     content: "";
-    height: 2px;
+    height: 4px;
     background: rgb(140,9,9);
     background: linear-gradient(90deg, rgba(140,9,9,1) 0%, rgba(243,59,59,1) 76%, rgba(255,89,89,1) 100%);
     position: absolute;

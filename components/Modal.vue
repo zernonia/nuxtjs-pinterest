@@ -2,9 +2,9 @@
     <div class="modal" @click="closemodalwindow">
       <span class="close" @click="closemodal">&times;</span>
       <div class="modalcontent">
-        <svg class="arrow left" @click="left()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M423.386 248.299l-256-245.327c-4.208-4.021-10.833-3.958-14.927.167l-64 63.998a10.655 10.655 0 00.219 15.291L272.47 256.007 88.678 429.586a10.655 10.655 0 00-.219 15.291l64 63.998a10.634 10.634 0 007.542 3.125c2.656 0 5.313-.979 7.385-2.958l256-245.327a10.696 10.696 0 000-15.416z"/></svg>
+        <svg class="arrow left"  @click="left()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M423.386 248.299l-256-245.327c-4.208-4.021-10.833-3.958-14.927.167l-64 63.998a10.655 10.655 0 00.219 15.291L272.47 256.007 88.678 429.586a10.655 10.655 0 00-.219 15.291l64 63.998a10.634 10.634 0 007.542 3.125c2.656 0 5.313-.979 7.385-2.958l256-245.327a10.696 10.696 0 000-15.416z"/></svg>
         <svg class="arrow right" @click="right()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M423.386 248.299l-256-245.327c-4.208-4.021-10.833-3.958-14.927.167l-64 63.998a10.655 10.655 0 00.219 15.291L272.47 256.007 88.678 429.586a10.655 10.655 0 00-.219 15.291l64 63.998a10.634 10.634 0 007.542 3.125c2.656 0 5.313-.979 7.385-2.958l256-245.327a10.696 10.696 0 000-15.416z"/></svg>
-        <img class="modalimg" :src="modaldata.regular" :alt="modaldata.altdesc">
+        <img v-on:dblclick="addlike(modaldata)" class="modalimg" :src="modaldata.regular" :alt="modaldata.altdesc">
         <div class="modaltext">
           <h4 @click="golink(modaldata.userportfolio)" class="modaluser">{{ modaldata.name }}</h4>
           <h1 class="modaldesc">{{ modaldata.desc }}</h1>
@@ -45,13 +45,30 @@ export default {
       'currentmodal.show': function(){
           if(this.currentmodal.show == true){
           this.openmodal(this.currentmodal.index)
+          window.onkeyup = event => this.keyevent(event)
           }
-      }
+          else{
+          window.onkeyup = null
+          }
+      },
   },
   methods:{
+    keyevent(event){
+      if( event.code === "ArrowRight"){
+        this.right()
+      }
+      if( event.code === "ArrowLeft"){
+        this.left()
+      }
+      if( event.code === "Escape"){
+        this.closemodal()
+      }
+    },
     openmodal(index){
       document.querySelector(".modal").style.display = "block"
       document.querySelector("body").style.overflow = "hidden"
+
+      
 
       if(this.currentmodal.name == undefined || this.currentmodal.name == null ){
         this.modaldata = this.allpicture[index]
@@ -102,20 +119,17 @@ export default {
     left(){
       if(this.currentmodal.index > 0 ){
         this.openmodal(this.currentmodal.index - 1)
-        console.log("left" + this.currentmodal.index)
       }
     },
     right(){
       if(this.currentmodal.name == undefined || this.currentmodal.name == null ){
         if(this.currentmodal.index < this.allpicture.length -1){
           this.openmodal(this.currentmodal.index + 1)
-          console.log("right" + this.currentmodal.index)
         }
       }
       else{
         if(this.currentmodal.index < this.allpicture[this.currentmodal.name].length - 1){
           this.openmodal(this.currentmodal.index + 1)
-          console.log("right" + this.currentmodal.index)
         }
       }
     },
@@ -129,9 +143,11 @@ export default {
       const temp = this.$store.state.saved.liked.filter(data => {if(data.id == id) return data.id})
       if (temp.length > 0)
         return true
-    },    
     },
-
+    golink(link){
+      window.open(link)
+    },       
+    },
 }
 </script>
 
