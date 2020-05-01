@@ -192,6 +192,21 @@ input[type=text]{
   transition: 0.5s;
   cursor: pointer;
 }
+
+.up {
+  top: 80% !important;
+  background: var(--input);
+  position:absolute;
+  width: 1.3em;
+  padding: 0.7em;
+  margin: 0.4em;
+  border-radius: 1em;
+  opacity: 1;
+  transition: 0.5s;
+  cursor: pointer;
+  fill: gray;
+}
+
 .dark {
   right: 0;
   top: 10% !important;
@@ -384,6 +399,14 @@ input[type=text]{
   }
   .fade-enter, .fade-leave-active {
     opacity: 0
+  }
+  
+  .slide-left-enter-active, .slide-left-leave-active {
+    transition: all 0.5s
+  }
+  .slide-left-enter, .slide-left-leave-active {
+    opacity: 0;
+    transform: translateX(100px);
   }
   
   .gallery-list-move {
