@@ -8,8 +8,8 @@
     <transition-group name="gallery-list" tag="div" class="wholegallery" mode="out-in" >
       <div v-for="(value, name, index) in allpicture" :key="name" v-if="show">
         <h2 class="gallery-title"><nuxt-link class="nuxt-link-active" :to="{ path: `/${name}`}">{{ name }}</nuxt-link></h2>
-        <transition-group name="picture-list" tag="div" class="gallery">
-          <div class="gallery-brick" v-for="(picture, index) in value" :key="picture.id">
+        <transition-group name="picture-list" tag="div" class="gallery-2">
+          <div class="gallery-brick-2" v-for="(picture, index) in value" :key="picture.id">
             <div class="photos" >
               <img loading="lazy" :src="picture.regular" :alt="picture.altdesc" @click="clickmodal(name,index)">
               <h5 class="user">{{ picture.name }}</h5>
@@ -96,6 +96,11 @@ export default {
     }
   },
   updated(){
+    setTimeout(() => {
+      this.resizeAllGridItems()
+    }, 500);
+  },
+  mounted(){
     setTimeout(() => {
       this.resizeAllGridItems()
     }, 500);
