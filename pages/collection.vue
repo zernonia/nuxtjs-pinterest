@@ -25,7 +25,6 @@
 
 <script>
 import Modal from '~/components/Modal'
-
 export default {
   components:{ Modal },
   data(){
@@ -54,7 +53,6 @@ export default {
         }
         const temp = Object.entries(grouppicture).sort()
         const temp2 = Object.fromEntries(temp)
-
         return temp2
       }
   },
@@ -84,14 +82,14 @@ export default {
         return true
     },
     resizeGridItem(item){
-      const grid = document.getElementsByClassName("gallery")[0];
+      const grid = document.getElementsByClassName("gallery-2")[0];
       const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
       const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
       const rowSpan = Math.ceil((item.querySelector('.photos').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
       item.style.gridRowEnd = "span "+rowSpan;
     },
     resizeAllGridItems(){
-      const allItems = document.getElementsByClassName("gallery-brick");
+      const allItems = document.getElementsByClassName("gallery-brick-2");
       for(var x=0;x<allItems.length;x++){
           this.resizeGridItem(allItems[x]);
       }

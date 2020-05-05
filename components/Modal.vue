@@ -157,43 +157,14 @@ export default {
   },
   mounted(){
     if(window.matchMedia("(max-width: 425px)").matches){
-      // window.onpointerdown = event => {
-      //   console.log(event)
-      //   const down = event.clientX
-      // }
-      // const temp = []
-      // window.onpointermove = event2 => {
-      //   temp.push(event2)
-      //   console.log(temp)
-      //   if(this.swipe){
-        
-        
-      //   if(event2.movementX >= 2){
-      //     this.swipe = false
-      //     this.left()
-      //   }
-      //   else if(event2.movementX <= -2){
-      //     this.swipe = false
-      //     this.right()
-      //   }
-      //   else{
-      //     this.swipe = true
-      //   }
-        
-      // }
-
-      // }
       window.ontouchstart = event => {
           const startTime = new Date().getTime()
           this.start = event.changedTouches[0].pageX
-          const start2 = event.changedTouches[0].pageY
         
         window.ontouchend = event => {
           const endTime = new Date().getTime()
           this.end = event.changedTouches[0].pageX
-          const end2 = event.changedTouches[0].pageY
-        
-        console.log(start2 - end2)
+
         const time = endTime - startTime
         const temp = (this.start - this.end)
         if(time < 200){
@@ -204,12 +175,8 @@ export default {
             this.left()
           }
         }
-        if(time < 200){
-          if(start2 - end2 < -100){
-            this.closemodal()
-          }
         }
-      }}
+      }
     }
     else{
       window.ontouchstart = null

@@ -11,9 +11,6 @@
         </div>
       </div>
     </div>
-    <transition name="fade">
-      <h2 v-if="empty">No result found...</h2>
-    </transition>
     <gallery :searchterm="searchterm" :show="show" :loaddata="loaddata"></gallery>
   </div>
 </template>
